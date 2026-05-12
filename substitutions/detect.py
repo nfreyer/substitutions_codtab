@@ -482,25 +482,38 @@ def main(param_dict):
         "Retention time",
         "Sequence",
         "Proteins",
-        "DP Base Sequence",
         "DP Mass Difference",
         "DP Time Difference",
         "DP PEP",
+        "DP Positional Probability",
         "DP Base Sequence",
         "DP Probabilities",
-        "DP Positional Probability",
-        "DP Decoy",
+        "DP Decoy"
     ]
-
+    
+    # Different MaxQuant versions use different cappitalization strategies for column names
+    # Compare all lowercase column names against this all lowercase list
+    # Map the column names back the capitalization of the original list to avoid conflicts downstream
+    dp_columns_lower = [x.lower() for x in dp_columns]   
+    
     logger.info("Read input file")
     df_iter = pd.read_csv(
         param_dict["path_to_allPeptides"],
         sep="\t",
         chunksize=10000,
         iterator=True,
-        usecols=dp_columns,
+        usecols=lambda c: c.lower() in dp_columns_lower,
     )
-    dp = pd.concat(chunk[pd.notnull(chunk["DP Mass Difference"])] for chunk in df_iter)
+    
+    chunks = []
+
+    for chunk in df_iter:
+        chunk.columns = dp_columns  # change capitalization to legacy column names
+        chunk = chunk[pd.notnull(chunk["DP Mass Difference"])]
+        chunks.append(chunk)
+
+    dp = pd.concat(chunks, ignore_index=True)
+    
     # dp = dp[~dp["Raw file"].str.contains("|".join(param_dict['excluded_samples']))]
     logger.debug(f"Len DP after excluded_samples: {len(dp)}")
     dp.reset_index(drop=True, inplace=True)
