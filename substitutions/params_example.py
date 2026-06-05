@@ -1,13 +1,8 @@
-#!/usr/bin/env python2
-# -*- coding: utf-8 -*-
-#Created on Wed Jul 11 10:14:41 2018
-#@author: ernestmordret
-#
-output_dir = W:/Nicola/Data/PUNCH-P/251212_PUNCHP_ms1filtering/txt/output
+output_dir = path/to/output
 #
 #PARAMETERS FOR DETECT
 #specify a path to the fasta file (DNA sequence of protein coding sequences)
-path_to_fasta = W:/Nicola/Genome_files/Escherichia_coli_str_k_12_substr_mg1655_gca_000005845.ASM584v2.cdna.all.fa
+path_to_fasta = path/to/cdna.all.fa
 #specify NCBI codon table to use during SeqIO translations
 # Table 1 = Standard
 # Table 2 = Vertebrate Mitochondrial (HUMAN)
@@ -15,7 +10,7 @@ path_to_fasta = W:/Nicola/Genome_files/Escherichia_coli_str_k_12_substr_mg1655_g
 # Table 11 = Bacterial, Archaeal, Plant Plastid (E. COLI)
 codon_table = 11
 #path to MaxQuant's table, allPeptides.txt
-path_to_allPeptides = W:/Nicola/Data/PUNCH-P/251212_PUNCHP_ms1filtering/txt/allPeptides.txt
+path_to_allPeptides = path/to/allPeptides.txt
 #m/z tolerance, used to filter DP–BP couples that resemble substitutions
 #and exclude couples that resemble known PTM
 tol = 0.005
