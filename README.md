@@ -11,6 +11,6 @@ Beyond the work of Ernest Mordret and Manuel Koesters, the present workflow allo
 
 To run the detection, create a params file and run:
 
-'''
-python run.py -d "path\to\params.py"
-'''
+```
+python run.py -d path\to\params.py
+```
